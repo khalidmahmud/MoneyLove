@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841DDD6C1C4CFB24009D31F0 /* AddTransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841DDD6B1C4CFB24009D31F0 /* AddTransactionViewController.m */; };
+		843E277E1C50E6840072C9AD /* MenuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 843E277D1C50E6840072C9AD /* MenuHeader.m */; };
+		843E27801C50E73C0072C9AD /* MenuHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 843E277F1C50E73C0072C9AD /* MenuHeader.xib */; };
+		847441031C4DF488003346B1 /* SelectCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441021C4DF488003346B1 /* SelectCategoryViewController.m */; };
+		847441081C4E0191003346B1 /* IncomeCategory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441051C4E0191003346B1 /* IncomeCategory+CoreDataProperties.m */; };
+		847441091C4E0191003346B1 /* IncomeCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441071C4E0191003346B1 /* IncomeCategory.m */; };
+		8474410E1C4E01B1003346B1 /* Income+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8474410B1C4E01B1003346B1 /* Income+CoreDataProperties.m */; };
+		8474410F1C4E01B1003346B1 /* Income.m in Sources */ = {isa = PBXBuildFile; fileRef = 8474410D1C4E01B1003346B1 /* Income.m */; };
+		847441141C4E01D5003346B1 /* Expenses+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441111C4E01D5003346B1 /* Expenses+CoreDataProperties.m */; };
+		847441151C4E01D5003346B1 /* Expenses.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441131C4E01D5003346B1 /* Expenses.m */; };
+		8474411A1C4E01EE003346B1 /* ExpenseCategory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441171C4E01EE003346B1 /* ExpenseCategory+CoreDataProperties.m */; };
+		8474411B1C4E01EE003346B1 /* ExpenseCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441191C4E01EE003346B1 /* ExpenseCategory.m */; };
+		8474411F1C4E2A44003346B1 /* DataAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 8474411E1C4E2A44003346B1 /* DataAccess.m */; };
+		847441231C4E3A54003346B1 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847441221C4E3A54003346B1 /* MenuViewController.m */; };
+		847441251C4E54E4003346B1 /* wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = 847441241C4E54E4003346B1 /* wallet.png */; };
 		84843D2F1C4CA521007B7B74 /* Question_mark_Icon_64.png in Resources */ = {isa = PBXBuildFile; fileRef = 84843D2E1C4CA521007B7B74 /* Question_mark_Icon_64.png */; };
 		84F2915C1C4917AF00CC2212 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F2915B1C4917AF00CC2212 /* main.m */; };
 		84F2915F1C4917AF00CC2212 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F2915E1C4917AF00CC2212 /* AppDelegate.m */; };
@@ -37,6 +52,34 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		841DDD6A1C4CFB24009D31F0 /* AddTransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTransactionViewController.h; sourceTree = "<group>"; };
+		841DDD6B1C4CFB24009D31F0 /* AddTransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTransactionViewController.m; sourceTree = "<group>"; };
+		843E277C1C50E6840072C9AD /* MenuHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuHeader.h; sourceTree = "<group>"; };
+		843E277D1C50E6840072C9AD /* MenuHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuHeader.m; sourceTree = "<group>"; };
+		843E277F1C50E73C0072C9AD /* MenuHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuHeader.xib; sourceTree = "<group>"; };
+		847441011C4DF488003346B1 /* SelectCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCategoryViewController.h; sourceTree = "<group>"; };
+		847441021C4DF488003346B1 /* SelectCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCategoryViewController.m; sourceTree = "<group>"; };
+		847441041C4E0191003346B1 /* IncomeCategory+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IncomeCategory+CoreDataProperties.h"; sourceTree = "<group>"; };
+		847441051C4E0191003346B1 /* IncomeCategory+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IncomeCategory+CoreDataProperties.m"; sourceTree = "<group>"; };
+		847441061C4E0191003346B1 /* IncomeCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IncomeCategory.h; sourceTree = "<group>"; };
+		847441071C4E0191003346B1 /* IncomeCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IncomeCategory.m; sourceTree = "<group>"; };
+		8474410A1C4E01B1003346B1 /* Income+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Income+CoreDataProperties.h"; sourceTree = "<group>"; };
+		8474410B1C4E01B1003346B1 /* Income+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Income+CoreDataProperties.m"; sourceTree = "<group>"; };
+		8474410C1C4E01B1003346B1 /* Income.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Income.h; sourceTree = "<group>"; };
+		8474410D1C4E01B1003346B1 /* Income.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Income.m; sourceTree = "<group>"; };
+		847441101C4E01D5003346B1 /* Expenses+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Expenses+CoreDataProperties.h"; sourceTree = "<group>"; };
+		847441111C4E01D5003346B1 /* Expenses+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Expenses+CoreDataProperties.m"; sourceTree = "<group>"; };
+		847441121C4E01D5003346B1 /* Expenses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Expenses.h; sourceTree = "<group>"; };
+		847441131C4E01D5003346B1 /* Expenses.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Expenses.m; sourceTree = "<group>"; };
+		847441161C4E01EE003346B1 /* ExpenseCategory+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ExpenseCategory+CoreDataProperties.h"; sourceTree = "<group>"; };
+		847441171C4E01EE003346B1 /* ExpenseCategory+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ExpenseCategory+CoreDataProperties.m"; sourceTree = "<group>"; };
+		847441181C4E01EE003346B1 /* ExpenseCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpenseCategory.h; sourceTree = "<group>"; };
+		847441191C4E01EE003346B1 /* ExpenseCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpenseCategory.m; sourceTree = "<group>"; };
+		8474411D1C4E2A44003346B1 /* DataAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataAccess.h; sourceTree = "<group>"; };
+		8474411E1C4E2A44003346B1 /* DataAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataAccess.m; sourceTree = "<group>"; };
+		847441211C4E3A54003346B1 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		847441221C4E3A54003346B1 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		847441241C4E54E4003346B1 /* wallet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wallet.png; sourceTree = "<group>"; };
 		84843D2E1C4CA521007B7B74 /* Question_mark_Icon_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Question_mark_Icon_64.png; sourceTree = "<group>"; };
 		84F291571C4917AF00CC2212 /* MoneyLove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyLove.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F2915B1C4917AF00CC2212 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -82,6 +125,89 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841DDD491C4CF898009D31F0 /* Income */ = {
+			isa = PBXGroup;
+			children = (
+				8474410A1C4E01B1003346B1 /* Income+CoreDataProperties.h */,
+				8474410B1C4E01B1003346B1 /* Income+CoreDataProperties.m */,
+				8474410C1C4E01B1003346B1 /* Income.h */,
+				8474410D1C4E01B1003346B1 /* Income.m */,
+			);
+			name = Income;
+			sourceTree = "<group>";
+		};
+		841DDD531C4CF910009D31F0 /* IncomeCategory */ = {
+			isa = PBXGroup;
+			children = (
+				847441041C4E0191003346B1 /* IncomeCategory+CoreDataProperties.h */,
+				847441051C4E0191003346B1 /* IncomeCategory+CoreDataProperties.m */,
+				847441061C4E0191003346B1 /* IncomeCategory.h */,
+				847441071C4E0191003346B1 /* IncomeCategory.m */,
+			);
+			name = IncomeCategory;
+			sourceTree = "<group>";
+		};
+		841DDD5A1C4CF958009D31F0 /* Expenses */ = {
+			isa = PBXGroup;
+			children = (
+				847441101C4E01D5003346B1 /* Expenses+CoreDataProperties.h */,
+				847441111C4E01D5003346B1 /* Expenses+CoreDataProperties.m */,
+				847441121C4E01D5003346B1 /* Expenses.h */,
+				847441131C4E01D5003346B1 /* Expenses.m */,
+			);
+			name = Expenses;
+			sourceTree = "<group>";
+		};
+		841DDD5B1C4CF96A009D31F0 /* ExpenseCategory */ = {
+			isa = PBXGroup;
+			children = (
+				847441161C4E01EE003346B1 /* ExpenseCategory+CoreDataProperties.h */,
+				847441171C4E01EE003346B1 /* ExpenseCategory+CoreDataProperties.m */,
+				847441181C4E01EE003346B1 /* ExpenseCategory.h */,
+				847441191C4E01EE003346B1 /* ExpenseCategory.m */,
+			);
+			name = ExpenseCategory;
+			sourceTree = "<group>";
+		};
+		841DDD681C4CFAB2009D31F0 /* AddTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				841DDD6A1C4CFB24009D31F0 /* AddTransactionViewController.h */,
+				841DDD6B1C4CFB24009D31F0 /* AddTransactionViewController.m */,
+			);
+			name = AddTransaction;
+			sourceTree = "<group>";
+		};
+		847441001C4DF461003346B1 /* SelectCategory */ = {
+			isa = PBXGroup;
+			children = (
+				847441011C4DF488003346B1 /* SelectCategoryViewController.h */,
+				847441021C4DF488003346B1 /* SelectCategoryViewController.m */,
+			);
+			name = SelectCategory;
+			sourceTree = "<group>";
+		};
+		8474411C1C4E2A01003346B1 /* Data Access */ = {
+			isa = PBXGroup;
+			children = (
+				8474411D1C4E2A44003346B1 /* DataAccess.h */,
+				8474411E1C4E2A44003346B1 /* DataAccess.m */,
+			);
+			name = "Data Access";
+			sourceTree = "<group>";
+		};
+		847441201C4E3A38003346B1 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				847441211C4E3A54003346B1 /* MenuViewController.h */,
+				847441221C4E3A54003346B1 /* MenuViewController.m */,
+				843E277C1C50E6840072C9AD /* MenuHeader.h */,
+				843E277D1C50E6840072C9AD /* MenuHeader.m */,
+				843E277F1C50E73C0072C9AD /* MenuHeader.xib */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
 		84F2914E1C4917AF00CC2212 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +231,14 @@
 		84F291591C4917AF00CC2212 /* MoneyLove */ = {
 			isa = PBXGroup;
 			children = (
+				847441201C4E3A38003346B1 /* Menu */,
+				8474411C1C4E2A01003346B1 /* Data Access */,
+				847441001C4DF461003346B1 /* SelectCategory */,
+				841DDD681C4CFAB2009D31F0 /* AddTransaction */,
+				841DDD5B1C4CF96A009D31F0 /* ExpenseCategory */,
+				841DDD5A1C4CF958009D31F0 /* Expenses */,
+				841DDD531C4CF910009D31F0 /* IncomeCategory */,
+				841DDD491C4CF898009D31F0 /* Income */,
 				84F2915D1C4917AF00CC2212 /* AppDelegate.h */,
 				84F2915E1C4917AF00CC2212 /* AppDelegate.m */,
 				84F291601C4917AF00CC2212 /* ViewController.h */,
@@ -122,6 +256,7 @@
 		84F2915A1C4917AF00CC2212 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				847441241C4E54E4003346B1 /* wallet.png */,
 				84843D2E1C4CA521007B7B74 /* Question_mark_Icon_64.png */,
 				84F2915B1C4917AF00CC2212 /* main.m */,
 			);
@@ -252,6 +387,8 @@
 				84F2916D1C4917AF00CC2212 /* LaunchScreen.storyboard in Resources */,
 				84F2916A1C4917AF00CC2212 /* Assets.xcassets in Resources */,
 				84F291651C4917AF00CC2212 /* Main.storyboard in Resources */,
+				843E27801C50E73C0072C9AD /* MenuHeader.xib in Resources */,
+				847441251C4E54E4003346B1 /* wallet.png in Resources */,
 				84843D2F1C4CA521007B7B74 /* Question_mark_Icon_64.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,10 +414,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841DDD6C1C4CFB24009D31F0 /* AddTransactionViewController.m in Sources */,
 				84F291681C4917AF00CC2212 /* MoneyLove.xcdatamodeld in Sources */,
 				84F291621C4917AF00CC2212 /* ViewController.m in Sources */,
+				847441231C4E3A54003346B1 /* MenuViewController.m in Sources */,
+				847441031C4DF488003346B1 /* SelectCategoryViewController.m in Sources */,
+				847441081C4E0191003346B1 /* IncomeCategory+CoreDataProperties.m in Sources */,
 				84F2915F1C4917AF00CC2212 /* AppDelegate.m in Sources */,
+				843E277E1C50E6840072C9AD /* MenuHeader.m in Sources */,
+				847441151C4E01D5003346B1 /* Expenses.m in Sources */,
+				8474411A1C4E01EE003346B1 /* ExpenseCategory+CoreDataProperties.m in Sources */,
+				8474410F1C4E01B1003346B1 /* Income.m in Sources */,
+				8474411F1C4E2A44003346B1 /* DataAccess.m in Sources */,
+				847441141C4E01D5003346B1 /* Expenses+CoreDataProperties.m in Sources */,
+				847441091C4E0191003346B1 /* IncomeCategory.m in Sources */,
 				84F2915C1C4917AF00CC2212 /* main.m in Sources */,
+				8474411B1C4E01EE003346B1 /* ExpenseCategory.m in Sources */,
+				8474410E1C4E01B1003346B1 /* Income+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
