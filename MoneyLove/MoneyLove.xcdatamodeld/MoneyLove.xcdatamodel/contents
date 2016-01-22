@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
+    <entity name="ExpenseCategory" representedClassName="ExpenseCategory" syncable="YES">
+        <attribute name="icon" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="nameExpense" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="typeOfExpense" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Expenses" inverseName="expenseOfType" inverseEntity="Expenses" syncable="YES"/>
+    </entity>
+    <entity name="Expenses" representedClassName="Expenses" syncable="YES">
+        <attribute name="amountExpense" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="categoryExpense" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayOfExpense" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="expenseOfType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ExpenseCategory" inverseName="typeOfExpense" inverseEntity="ExpenseCategory" syncable="YES"/>
+    </entity>
+    <entity name="Income" representedClassName="Income" syncable="YES">
+        <attribute name="amountIncome" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="categoryIncome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayOfIncome" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="typeOfIncome" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="IncomeCategory" inverseName="incomeOfType" inverseEntity="IncomeCategory" syncable="YES"/>
+    </entity>
+    <entity name="IncomeCategory" representedClassName="IncomeCategory" syncable="YES">
+        <attribute name="icon" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="nameIncome" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="incomeOfType" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Income" inverseName="typeOfIncome" inverseEntity="Income" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ExpenseCategory" positionX="-299" positionY="-252" width="128" height="90"/>
+        <element name="Expenses" positionX="-29" positionY="-261" width="128" height="103"/>
+        <element name="Income" positionX="-47" positionY="-450" width="128" height="103"/>
+        <element name="IncomeCategory" positionX="-297" positionY="-430" width="128" height="90"/>
+    </elements>
 </model>

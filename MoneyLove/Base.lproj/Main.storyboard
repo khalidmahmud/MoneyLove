@@ -8,10 +8,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Add Transaction View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AddTransactionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -26,18 +26,17 @@
                                 <items>
                                     <navigationItem title="Add Transaction" id="SeZ-yS-FP9">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="a7e-mf-n3B"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="faa-ga-D0K"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="faa-ga-D0K">
+                                            <connections>
+                                                <segue destination="TpA-aI-1Xz" kind="show" id="D7L-y1-Cce"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1er-0c-i3v">
                                 <rect key="frame" x="82" y="60" width="419" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L51-hb-jEw">
-                                <rect key="frame" x="82" y="107" width="419" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -74,10 +73,11 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
+                                        <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="selectCategoryAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fdV-qh-ewM"/>
                                     <segue destination="LB0-ob-qTG" kind="show" id="VDy-NS-YDJ"/>
                                 </connections>
                             </button>
@@ -99,6 +99,11 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L51-hb-jEw">
+                                <rect key="frame" x="82" y="107" width="419" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -132,12 +137,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="306" y="405"/>
+            <point key="canvasLocation" x="350" y="839"/>
         </scene>
-        <!--View Controller-->
+        <!--Select Category View Controller-->
         <scene sceneID="ibC-fu-LD6">
             <objects>
-                <viewController id="LB0-ob-qTG" sceneMemberID="viewController">
+                <viewController id="LB0-ob-qTG" customClass="SelectCategoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L8t-oP-HcY"/>
                         <viewControllerLayoutGuide type="bottom" id="W0G-Un-J9t"/>
@@ -149,6 +154,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="S0A-qn-KHd">
                                 <rect key="frame" x="0.0" y="49" width="600" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="LB0-ob-qTG" id="xDp-XX-IdP"/>
+                                    <outlet property="delegate" destination="LB0-ob-qTG" id="cyB-C0-XFZ"/>
+                                </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nyP-bV-Cf1">
                                 <rect key="frame" x="0.0" y="20" width="600" height="29"/>
@@ -156,6 +165,9 @@
                                     <segment title="Expenses"/>
                                     <segment title="Income"/>
                                 </segments>
+                                <connections>
+                                    <action selector="selectTransactionType:" destination="LB0-ob-qTG" eventType="valueChanged" id="F9A-2x-pb7"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,10 +181,51 @@
                             <constraint firstAttribute="trailing" secondItem="nyP-bV-Cf1" secondAttribute="trailing" id="vXo-du-fS7"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="expenseTableView" destination="S0A-qn-KHd" id="OjS-T4-ViV"/>
+                        <outlet property="segmentedControl" destination="nyP-bV-Cf1" id="0DQ-gJ-eGt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLI-OB-ast" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="943" y="405"/>
+            <point key="canvasLocation" x="1081" y="839"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="XWT-WN-cmv">
+            <objects>
+                <viewController id="TpA-aI-1Xz" customClass="MenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bb5-2k-ToD"/>
+                        <viewControllerLayoutGuide type="bottom" id="H3H-ZK-OuS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nec-dr-vbf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="b8o-wK-wyz">
+                                <rect key="frame" x="0.0" y="28" width="600" height="572"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="TpA-aI-1Xz" id="WJD-c7-ZPp"/>
+                                    <outlet property="delegate" destination="TpA-aI-1Xz" id="0FM-UM-zzh"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="b8o-wK-wyz" firstAttribute="bottom" secondItem="H3H-ZK-OuS" secondAttribute="top" id="fCB-Fn-nIt"/>
+                            <constraint firstItem="b8o-wK-wyz" firstAttribute="leading" secondItem="nec-dr-vbf" secondAttribute="leading" id="ozd-fa-X2p"/>
+                            <constraint firstAttribute="trailing" secondItem="b8o-wK-wyz" secondAttribute="trailing" id="r05-Sz-eb3"/>
+                            <constraint firstItem="b8o-wK-wyz" firstAttribute="top" secondItem="bb5-2k-ToD" secondAttribute="bottom" constant="8" symbolic="YES" id="tm7-Y6-zs9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="menuTableView" destination="b8o-wK-wyz" id="zSc-0x-TTn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Cy-zh-NfM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="712" y="-44"/>
         </scene>
     </scenes>
     <resources>
