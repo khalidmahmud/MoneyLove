@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Select Category";
     DataAccess *accessData = [[DataAccess alloc] init];
     self.expenseCategoryArray = [accessData getExpenseCategory];
     self.incomeCategoryArray = [accessData getIncomeCategory];
@@ -50,11 +51,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *categoryTableIdentifier = @"categoryCell";//cell for show categories in expense or income
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:categoryTableIdentifier];
+    static NSString *expenseTableIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:expenseTableIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:categoryTableIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:expenseTableIdentifier];
     }
+    
     if(self.segmentedControl.selectedSegmentIndex == 0) {
         ExpenseCategory *expenseCategoryObject = [self.expenseCategoryArray objectAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@",(expenseCategoryObject.nameExpense) ? expenseCategoryObject.nameExpense: @""];
@@ -70,11 +72,30 @@
 - (IBAction)selectTransactionType:(id)sender {
     DataAccess *accessData = [[DataAccess alloc] init];
     if(self.segmentedControl.selectedSegmentIndex == 0) {
-        self.expenseCategoryArray = [accessData getExpenseCategory];//getting the categories for expenses
+        self.expenseCategoryArray = [accessData getExpenseCategory];
         [self.expenseTableView reloadData];
     } else if(self.segmentedControl.selectedSegmentIndex == 1) {
-        self.incomeCategoryArray = [accessData getIncomeCategory];//getting the categories for income
+        self.incomeCategoryArray = [accessData getIncomeCategory];
         [self.expenseTableView reloadData];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CategoryObject *categoryObject = [[CategoryObject alloc] init];
+    if(self.segmentedControl.selectedSegmentIndex == 0) {
+        ExpenseCategory *expenseCategoryObject = [self.expenseCategoryArray objectAtIndex:indexPath.row];
+        categoryObject.nameCategory = [NSString stringWithFormat:@"%@",(expenseCategoryObject.nameExpense) ? expenseCategoryObject.nameExpense: @""];
+        categoryObject.iconCategory = [UIImage imageWithData:expenseCategoryObject.icon];
+        categoryObject.typeCategory = 0;
+        [self.delegate selectCategoryObject:categoryObject];
+        [self.navigationController popViewControllerAnimated:YES];
+    } else if(self.segmentedControl.selectedSegmentIndex == 1) {
+        IncomeCategory *incomeCategoryObject = [self.incomeCategoryArray objectAtIndex:indexPath.row];
+        categoryObject.nameCategory = [NSString stringWithFormat:@"%@",(incomeCategoryObject.nameIncome) ? incomeCategoryObject.nameIncome: @""];
+        categoryObject.iconCategory = [UIImage imageWithData:incomeCategoryObject.icon];
+        categoryObject.typeCategory = 1;
+        [self.delegate selectCategoryObject:categoryObject];
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

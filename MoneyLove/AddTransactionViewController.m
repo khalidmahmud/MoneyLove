@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Add Transaction";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,16 +29,29 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (IBAction)selectCategoryAction:(id)sender {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    SelectCategoryViewController *controller = (SelectCategoryViewController *)[mainStoryboard instantiateViewControllerWithIdentifier: @"SelectCategory"];
+    controller.delegate = self;
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+-(void) selectCategoryObject:(CategoryObject *)categoryObject {
+    if (categoryObject != nil) {
+        [self.buttonCategory setImage:categoryObject.iconCategory forState:UIControlStateNormal];
+        self.categoryNameLabel.text = categoryObject.nameCategory;
+    } else {
+        NSLog(@"The Category Object returned nil value");
+    }
 }
 
 @end

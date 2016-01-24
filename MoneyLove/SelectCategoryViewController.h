@@ -7,13 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CategoryObject.h"
+
+@protocol SelectCategoryViewControllerDelegate <NSObject>
+-(void) selectCategoryObject:(CategoryObject *)categoryObject;
+@end
 
 @interface SelectCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *expenseTableView;
+@property (weak, nonatomic) IBOutlet UITableView *expenseTableView;
 - (IBAction)selectTransactionType:(id)sender;
-@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray *expenseCategoryArray;
 @property (strong, nonatomic) NSArray *incomeCategoryArray;
+
+@property (nonatomic, weak) id <SelectCategoryViewControllerDelegate> delegate;
 
 @end

@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MenuHeader.h"
 
 @interface MenuViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-@property (strong, nonatomic) IBOutlet UITableView *menuTableView;
+
+@property (weak, nonatomic) IBOutlet UITableView *menuTableView;
 @property (strong, nonatomic) NSArray *menuOptions;
+@property (strong, nonatomic) NSArray *menuOptionsIcons;
 
 @end

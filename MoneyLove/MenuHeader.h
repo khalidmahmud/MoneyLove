@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MenuHeader : UITableViewHeaderFooterView
-@property (strong, nonatomic) IBOutlet UILabel *sectionHeaderLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sectionHeaderLabel;
 
 @end
