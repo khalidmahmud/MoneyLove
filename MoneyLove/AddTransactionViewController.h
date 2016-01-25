@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SelectCategoryViewController.h"
+#import "CategoryObject.h"
 
-@interface AddTransactionViewController : UIViewController
+@interface AddTransactionViewController : UIViewController<SelectCategoryViewControllerDelegate>
 
 @property (nonatomic, retain) NSData *imag;
 - (IBAction)selectCategoryAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCategory;
+@property (weak, nonatomic) IBOutlet UILabel *categoryNameLabel;
+
+
+
+
 
 @end
