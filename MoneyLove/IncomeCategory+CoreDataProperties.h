@@ -2,7 +2,7 @@
 //  IncomeCategory+CoreDataProperties.h
 //  MoneyLove
 //
-//  Created by Abu Khalid on 1/19/16.
+//  Created by Abu Khalid on 2/4/16.
 //  Copyright © 2016 Abu Khalid. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IncomeCategory (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSData *icon;
+@property (nullable, nonatomic, retain) NSString *iconPath;
 @property (nullable, nonatomic, retain) NSString *nameIncome;
 @property (nullable, nonatomic, retain) NSSet<Income *> *incomeOfType;
 

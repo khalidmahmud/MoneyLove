@@ -7,6 +7,7 @@
 //
 
 #import "MenuViewController.h"
+#import "DataAccess.h"
 
 @interface MenuViewController ()
 
@@ -15,11 +16,28 @@
 @implementation MenuViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+  [super viewDidLoad];
+  // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
     // Do any additional setup after loading the view.
     self.menuOptions = [[NSArray alloc] initWithObjects:@"Transactions",@"Incomes",@"Expenses",nil];
     self.menuOptionsIcons = [[NSArray alloc] initWithObjects:@"Transactions.png",@"Incomes.png",@"Expenses.png",nil];
     [self.menuTableView registerNib:[UINib nibWithNibName:@"MenuHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"MenuTableHeader"];
+    if ([DataAccess getTotalExpense] < 0.0) {
+        NSLog(@"Error occured....");
+    } else {
+        self.totalExpense = [DataAccess getTotalExpense];
+    }
+    if ([DataAccess getTotalIncome] < 0.0) {
+        NSLog(@"Error occured....");
+    } else {
+        self.totalIncome = [DataAccess getTotalIncome];
+    }
+  
+    [self.menuTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +60,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *menuCellTableIdentifier = @"menuCell"; //cell for menuTableView
+    static NSString *menuCellTableIdentifier = @"MenuCell"; //cell for menuTableView
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellTableIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:menuCellTableIdentifier];
@@ -50,11 +68,12 @@
     cell.textLabel.text = [self.menuOptions objectAtIndex:indexPath.row];
     cell.imageView.image = [UIImage imageNamed:[self.menuOptionsIcons objectAtIndex:indexPath.row]];
     cell.backgroundColor = [UIColor grayColor];
+    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    cell.textLabel.textColor = [UIColor whiteColor];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //NSLog(@"%ld",indexPath.row);
     if (indexPath.row == 0) {
         [self performSegueWithIdentifier:@"goToMain" sender:self.menuTableView];
     } else if (indexPath.row == 1) {
@@ -66,19 +85,17 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MenuHeader *header=[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"MenuTableHeader"];
-    NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
-    attachment.image = [UIImage imageNamed:@"wallet.png"];
-    NSAttributedString *attachmentString = [NSAttributedString attributedStringWithAttachment:attachment];
-    NSMutableAttributedString *myString = [[NSMutableAttributedString alloc] initWithAttributedString:attachmentString];
-    [myString appendAttributedString:[[NSAttributedString alloc] initWithString:@"Your Wallet"]];
-    header.sectionHeaderLabel.attributedText = myString;;
+    // checking subtitle....
+    NSString *checkSubtitle = [NSString stringWithFormat:@"%.2f",(self.totalIncome - self.totalExpense)];
+   //check subtitle.....
+    header.sectionHeaderLabel.text = checkSubtitle;
+    header.walletImageView.image = [UIImage imageNamed:@"wallet.png"];
     [header.sectionHeaderLabel setFont:[UIFont boldSystemFontOfSize:20]];
     return header;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 44;
+    return 48;
 }
-
 
 @end

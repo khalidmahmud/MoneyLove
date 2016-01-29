@@ -14,5 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *menuTableView;
 @property (strong, nonatomic) NSArray *menuOptions;
 @property (strong, nonatomic) NSArray *menuOptionsIcons;
+@property (assign, nonatomic) float totalIncome;
+@property (assign, nonatomic) float totalExpense;
 
 @end

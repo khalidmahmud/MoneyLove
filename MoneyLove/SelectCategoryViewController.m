@@ -8,8 +8,7 @@
 
 #import "SelectCategoryViewController.h"
 #import "DataAccess.h"
-#import "ExpenseCategory.h"
-#import "IncomeCategory.h"
+
 
 @interface SelectCategoryViewController ()
 
@@ -21,9 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"Select Category";
-    DataAccess *accessData = [[DataAccess alloc] init];
-    self.expenseCategoryArray = [accessData getExpenseCategory];
-    self.incomeCategoryArray = [accessData getIncomeCategory];
+    
+    self.expenseCategoryArray = [DataAccess getExpenseCategory];
+    self.incomeCategoryArray = [DataAccess getIncomeCategory];
     
 }
 
@@ -51,31 +50,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *expenseTableIdentifier = @"Cell";
+    static NSString *expenseTableIdentifier = @"transactionCategoryCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:expenseTableIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:expenseTableIdentifier];
     }
     
     if(self.segmentedControl.selectedSegmentIndex == 0) {
-        ExpenseCategory *expenseCategoryObject = [self.expenseCategoryArray objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@",(expenseCategoryObject.nameExpense) ? expenseCategoryObject.nameExpense: @""];
-        cell.imageView.image = [UIImage imageWithData:expenseCategoryObject.icon];
+       cell.textLabel.text = [[self.expenseCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"nameExpense"];
+       NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[[self.expenseCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"iconPath"]];
+       cell.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
     } else if(self.segmentedControl.selectedSegmentIndex == 1) {
-        IncomeCategory *incomeCategoryObject = [self.incomeCategoryArray objectAtIndex:indexPath.row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@",(incomeCategoryObject.nameIncome) ? incomeCategoryObject.nameIncome: @""];
-        cell.imageView.image = [UIImage imageWithData:incomeCategoryObject.icon];
+        cell.textLabel.text = [[self.incomeCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"nameIncome"];
+        NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[[self.incomeCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"iconPath"]];
+        cell.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
     }
     return cell;
 }
 
 - (IBAction)selectTransactionType:(id)sender {
-    DataAccess *accessData = [[DataAccess alloc] init];
+    
     if(self.segmentedControl.selectedSegmentIndex == 0) {
-        self.expenseCategoryArray = [accessData getExpenseCategory];
+        self.expenseCategoryArray = [DataAccess getExpenseCategory];
         [self.expenseTableView reloadData];
     } else if(self.segmentedControl.selectedSegmentIndex == 1) {
-        self.incomeCategoryArray = [accessData getIncomeCategory];
+        self.incomeCategoryArray = [DataAccess getIncomeCategory];
         [self.expenseTableView reloadData];
     }
 }
@@ -83,17 +82,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CategoryObject *categoryObject = [[CategoryObject alloc] init];
     if(self.segmentedControl.selectedSegmentIndex == 0) {
-        ExpenseCategory *expenseCategoryObject = [self.expenseCategoryArray objectAtIndex:indexPath.row];
-        categoryObject.nameCategory = [NSString stringWithFormat:@"%@",(expenseCategoryObject.nameExpense) ? expenseCategoryObject.nameExpense: @""];
-        categoryObject.iconCategory = [UIImage imageWithData:expenseCategoryObject.icon];
-        categoryObject.typeCategory = 0;
+        categoryObject.nameCategory = [[self.expenseCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"nameExpense"];
+        NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[[self.expenseCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"iconPath"]];
+        categoryObject.iconCategory = [UIImage imageWithContentsOfFile:imagePath];
+        categoryObject.typeCategory = 1;//for expense type
         [self.delegate selectCategoryObject:categoryObject];
         [self.navigationController popViewControllerAnimated:YES];
     } else if(self.segmentedControl.selectedSegmentIndex == 1) {
-        IncomeCategory *incomeCategoryObject = [self.incomeCategoryArray objectAtIndex:indexPath.row];
-        categoryObject.nameCategory = [NSString stringWithFormat:@"%@",(incomeCategoryObject.nameIncome) ? incomeCategoryObject.nameIncome: @""];
-        categoryObject.iconCategory = [UIImage imageWithData:incomeCategoryObject.icon];
-        categoryObject.typeCategory = 1;
+        categoryObject.nameCategory = [[self.incomeCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"nameIncome"];
+        NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[[self.incomeCategoryArray objectAtIndex:indexPath.row]  valueForKey:@"iconPath"]];
+        categoryObject.iconCategory = [UIImage imageWithContentsOfFile:imagePath];
+        categoryObject.typeCategory = 2;//for income type
         [self.delegate selectCategoryObject:categoryObject];
         [self.navigationController popViewControllerAnimated:YES];
     }

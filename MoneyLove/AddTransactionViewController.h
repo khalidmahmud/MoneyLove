@@ -13,11 +13,13 @@
 @interface AddTransactionViewController : UIViewController<SelectCategoryViewControllerDelegate>
 
 @property (nonatomic, retain) NSData *imag;
+@property (nonatomic, weak) IBOutlet UIButton *buttonCategory;
+@property (nonatomic, weak) IBOutlet UILabel *categoryNameLabel;
+@property (nonatomic, weak) IBOutlet UITextField *amountTransaction;
+@property (nonatomic, weak) IBOutlet UIDatePicker *dateTransaction;
+@property (nonatomic, assign)int typeOfCategory;
 - (IBAction)selectCategoryAction:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *buttonCategory;
-@property (weak, nonatomic) IBOutlet UILabel *categoryNameLabel;
-
-
+- (IBAction)addTransaction:(id)sender;
 
 
 
