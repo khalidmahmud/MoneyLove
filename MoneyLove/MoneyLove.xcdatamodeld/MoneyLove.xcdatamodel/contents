@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F27" minimumToolsVersion="Automatic">
     <entity name="ExpenseCategory" representedClassName="ExpenseCategory" syncable="YES">
-        <attribute name="icon" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="iconPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nameExpense" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="typeOfExpense" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Expenses" inverseName="expenseOfType" inverseEntity="Expenses" syncable="YES"/>
     </entity>
@@ -18,7 +18,7 @@
         <relationship name="typeOfIncome" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="IncomeCategory" inverseName="incomeOfType" inverseEntity="IncomeCategory" syncable="YES"/>
     </entity>
     <entity name="IncomeCategory" representedClassName="IncomeCategory" syncable="YES">
-        <attribute name="icon" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="iconPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nameIncome" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="incomeOfType" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Income" inverseName="typeOfIncome" inverseEntity="Income" syncable="YES"/>
     </entity>

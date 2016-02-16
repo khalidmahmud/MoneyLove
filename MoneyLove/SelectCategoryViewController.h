@@ -16,11 +16,10 @@
 @interface SelectCategoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *expenseTableView;
-- (IBAction)selectTransactionType:(id)sender;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (strong, nonatomic) NSArray *expenseCategoryArray;
 @property (strong, nonatomic) NSArray *incomeCategoryArray;
-
 @property (nonatomic, weak) id <SelectCategoryViewControllerDelegate> delegate;
+- (IBAction)selectTransactionType:(id)sender;
 
 @end

@@ -10,5 +10,6 @@
 
 @interface MenuHeader : UITableViewHeaderFooterView
 @property (weak, nonatomic) IBOutlet UILabel *sectionHeaderLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *walletImageView;
 
 @end

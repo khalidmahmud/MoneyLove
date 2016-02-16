@@ -2,7 +2,7 @@
 //  IncomeCategory+CoreDataProperties.m
 //  MoneyLove
 //
-//  Created by Abu Khalid on 1/19/16.
+//  Created by Abu Khalid on 2/4/16.
 //  Copyright © 2016 Abu Khalid. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,7 +13,7 @@
 
 @implementation IncomeCategory (CoreDataProperties)
 
-@dynamic icon;
+@dynamic iconPath;
 @dynamic nameIncome;
 @dynamic incomeOfType;
 
