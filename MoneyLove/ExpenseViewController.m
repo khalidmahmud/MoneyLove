@@ -10,6 +10,8 @@
 #import "DataAccess.h"
 #import "ExpenseDataModel.h"
 #import "StatisticsExpenseHeader.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 
 @interface ExpenseViewController ()
@@ -31,13 +33,13 @@
 
 @implementation ExpenseViewController
 
-- (void)viewDidLoad {
+ - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+ - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //getting the wallet statistics
     if ([DataAccess getTotalExpense] < 0.0) {
@@ -50,9 +52,17 @@
     } else {
         self.totalIncome = [DataAccess getTotalIncome];
     }
-
-   self.title = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Your Wallet = %.2f",(self.totalIncome - self.totalExpense)]];
   
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 2;
+    label.font = [UIFont boldSystemFontOfSize: 14.0f];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"Your Wallet \n %.2f tk.",(self.totalIncome - self.totalExpense)];
+    self.navigationItem.titleView = label;
+
     //getting the start and end dates
     self.currentStartDate = [self setStartDateFromCurrentDate];
     self.currentEndDate = [self nextMonthCalculation:self.currentStartDate];//getting to next month
@@ -64,7 +74,7 @@
     self.walletExpense2 = [self totalSumFromArray:resultOfExpense2];
     //data array 1............
     NSMutableArray *resultOfExpense1 = [[accessData getExpenseWithStartDate:[self previousMonthCalculation:self.currentStartDate] endDate:[self previousMonthCalculation:self.currentEndDate]]mutableCopy];
-    
+  
     //getting the expense...previous week
     self.walletExpense1 = [self totalSumFromArray:resultOfExpense1];
     
@@ -75,7 +85,7 @@
     self.walletExpense3 = [self totalSumFromArray:resultOfExpense3];
     
     [self setScrollView];
-    
+  
     float x = 0.0;
     self.expenseTableView1 = [[UITableView alloc]initWithFrame:CGRectMake(x, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)];
     self.expenseTableView1.dataSource = self;
@@ -89,7 +99,7 @@
     self.expenseTableView2.delegate = self;
     self.expenseTableView2.tag = 2;
     [self.expenseScrollView addSubview:self.expenseTableView2];
-    
+  
     x += self.view.bounds.size.width;
     self.expenseTableView3 = [[UITableView alloc]initWithFrame:CGRectMake(x, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)];
     self.expenseTableView3.dataSource = self;
@@ -105,35 +115,53 @@
     
     //if initially any data array is empty......
     if (![self.expenseDataArray1 count]) {
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:self.expenseTableView1.frame];
-        self.expenseTableView1.backgroundView = tempImageView;
+         self.expenseTableView1.hidden = YES;
     }
-    if(![self.expenseDataArray2 count] ) {
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:self.expenseTableView2.frame];
-        self.expenseTableView2.backgroundView = tempImageView;
+    if (![self.expenseDataArray2 count] ) {
+        self.expenseTableView2.hidden = YES;
     }
-    if(![self.expenseDataArray3 count] ) {
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:self.expenseTableView3.frame];
-        self.expenseTableView3.backgroundView = tempImageView;
+    if (![self.expenseDataArray3 count] ) {
+        self.expenseTableView3.hidden = YES;
     }
-    
+    //
+    UIButton* customLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [customLeftButton setImage:[UIImage imageNamed:@"menu-icon_black.png"] forState:UIControlStateNormal];
+    [customLeftButton setTitle:@"" forState:UIControlStateNormal];
+    [customLeftButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [customLeftButton sizeToFit];
+    UIBarButtonItem* customLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:customLeftButton];
+    self.navigationItem.leftBarButtonItem = customLeftBarButtonItem;
+
+    //register nib for headers...
     [self.expenseTableView1 registerNib:[UINib nibWithNibName:@"StatisticsExpenseHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"StatisticsExpenseHeader"];
     [self.expenseTableView2 registerNib:[UINib nibWithNibName:@"StatisticsExpenseHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"StatisticsExpenseHeader"];
     [self.expenseTableView3 registerNib:[UINib nibWithNibName:@"StatisticsExpenseHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"StatisticsExpenseHeader"];
 }
 
--(void)setScrollView {
+ - (void) back:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+ - (void)setScrollView {
     CGSize size = CGSizeMake(self.view.bounds.size.width * 3, self.view.bounds.size.height);
     [self.expenseScrollView setContentSize:size];
     
     CGPoint point = CGPointMake(self.view.bounds.size.width, 0.0);
     [self.expenseScrollView setContentOffset:point];
+    
+    UIImage *timage = [UIImage imageNamed:@"NoTransaction.png"];
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0.0);
+    [timage drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImage *testImage = [self imageByCombiningImage:newImage withImage:newImage];
+    testImage = [self imageByCombiningImage:testImage withImage:newImage];
+    self.expenseScrollView.backgroundColor = [UIColor colorWithPatternImage:testImage];
+
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+ - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([tableView isEqual:self.expenseTableView1]) {
         return [self.expenseDataArray1 count];
     } else if ([tableView isEqual:self.expenseTableView2]) {
@@ -145,26 +173,25 @@
 
 
 
-- (void)didReceiveMemoryWarning {
+ - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+ - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *expenseTableIdentifier = @"ExpenseCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:expenseTableIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:expenseTableIdentifier];
     }
     [cell setBackgroundColor:[UIColor clearColor]];
@@ -198,14 +225,14 @@
 
 #pragma mark - updating Previous Month and Next Month
 
-- (NSMutableArray *)getPreviousMonth {
+ - (NSMutableArray *)getPreviousMonth {
     NSMutableArray *previousMonthDataExpense;
     DataAccess *accessData = [[DataAccess alloc] init];
     previousMonthDataExpense = [[accessData getExpenseWithStartDate:[self previousMonthCalculation:self.currentStartDate] endDate:[self previousMonthCalculation:self.currentEndDate]] mutableCopy];
     return previousMonthDataExpense;
 }
 
-- (NSMutableArray *)getNextMonth {
+ - (NSMutableArray *)getNextMonth {
     NSMutableArray *nextMonthDataExpense;
     DataAccess *accessData = [[DataAccess alloc] init];
     
@@ -215,10 +242,9 @@
 
 
 #pragma mark - ScrollView
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.expenseScrollView) {
-        if(scrollView.contentOffset.x == 0) {
+        if (scrollView.contentOffset.x == 0) {
             NSDate *tempDate = self.currentStartDate;
             self.currentStartDate = [self previousMonthCalculation:self.currentStartDate];
             self.currentEndDate = tempDate;
@@ -227,13 +253,12 @@
             self.currentStartDate = self.currentEndDate;
             self.currentEndDate = [self nextMonthCalculation:self.currentEndDate];
             [self moveLeft];
-        } else
-            return;
+        }
     }
 }
 
--(void)moveLeft {
-    
+ - (void)moveLeft {
+   
     UITableView *tempTblView = [self.arrayTableView objectAtIndex:0];
     [self.arrayTableView removeObjectAtIndex:0];
     [self.arrayTableView insertObject:tempTblView atIndex:2];
@@ -253,8 +278,8 @@
     }
 }
 
--(void)moveRight {
-    
+ - (void)moveRight {
+   
     UITableView *tempTblView = [self.arrayTableView objectAtIndex:2];
     [self.arrayTableView removeObjectAtIndex:2];
     [self.arrayTableView insertObject:tempTblView atIndex:0];
@@ -273,22 +298,23 @@
     }
 }
 
--(void)updateScrollViewCotent {
+ - (void)updateScrollViewCotent {
     for (int i = 0; i < self.arrayTableView.count; i++) {
-        UITableView *tblView = [self.arrayTableView objectAtIndex:i];
+         UITableView *tblView = [self.arrayTableView objectAtIndex:i];
         
-        [tblView setFrame:CGRectMake(i * self.view.bounds.size.width, 0.0, tblView.frame.size.width, tblView.frame.size.height)];
-        tblView.tag = i + 1;
-        [self.arrayTableView replaceObjectAtIndex:i withObject:tblView];
+         [tblView setFrame:CGRectMake(i * self.view.bounds.size.width, 0.0, tblView.frame.size.width, tblView.frame.size.height)];
+         tblView.tag = i + 1;
+         [self.arrayTableView replaceObjectAtIndex:i withObject:tblView];
     }
     CGPoint point = CGPointMake(self.view.bounds.size.width, 0.0);
     [self.expenseScrollView setContentOffset:point];
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+ - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     StatisticsExpenseHeader *header=[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"StatisticsExpenseHeader"];
     DataAccess *accessData = [[DataAccess alloc] init];
-    
+    header.monthlyExpenseLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    header.monthlyExpenseLabel.layer.borderWidth = 3.0;
     if (tableView.tag == 1) {//previous view section header
         //fixing wallet
         //data array 1............
@@ -310,14 +336,14 @@
         //fixing wallet..........
         NSMutableArray *resultOfExpense3 = [[accessData getExpenseWithStartDate:[self nextMonthCalculation:self.currentStartDate] endDate:[self nextMonthCalculation:self.currentEndDate]] mutableCopy];
         self.walletExpense3 = [self totalSumFromArray:resultOfExpense3];
-        ////
+        //
         header.monthlyExpenseLabel.text = [NSString stringWithFormat:@"%.2f", self.walletExpense3];
         header.monthlyExpenseLabel.textColor = [UIColor redColor];
     }
     return header;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+ - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] == 0) {
         return 0;
     } else {
@@ -325,23 +351,20 @@
     }
 }
 
-- (void) showNoDataView:(NSArray *)checkArray identifier:(int)tableIdentifier {
+ - (void) showNoDataView:(NSArray *)checkArray identifier:(int)tableIdentifier {
     if (![checkArray count]) {
         UITableView *tblView1 = [self.arrayTableView objectAtIndex:tableIdentifier];
         [tblView1 reloadData];
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:tblView1.frame];
-        tblView1.backgroundView = tempImageView;
-        [tblView1 reloadData];
+        tblView1.hidden = YES;
     } else if ([checkArray count]) {
         UITableView *tblView1 = [self.arrayTableView objectAtIndex:tableIdentifier];
-        tblView1.backgroundView.hidden = YES;
+        tblView1.hidden = NO;
         [tblView1 reloadData];
     }
 }
 
-- (NSDate *)setStartDateFromCurrentDate {
-    
+ - (NSDate *)setStartDateFromCurrentDate {
+   
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
     NSDateComponents* components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
@@ -349,7 +372,7 @@
     return [calendar dateFromComponents:components];
 }
 
-- (NSDate *) nextMonthCalculation:(NSDate *)givenDate {
+ - (NSDate *) nextMonthCalculation:(NSDate *)givenDate {
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
     NSDateComponents* components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:givenDate];
@@ -360,7 +383,7 @@
     return [calendar dateFromComponents:components];
 }
 
-- (NSDate *) previousMonthCalculation:(NSDate *)givenDate {
+ - (NSDate *) previousMonthCalculation:(NSDate *)givenDate {
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents* components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:givenDate];
     [components setMonth:([components month] - 1)];
@@ -369,14 +392,32 @@
     return [calendar dateFromComponents:components];
 }
 
-- (float) totalSumFromArray:(NSMutableArray *)arrayTotal {
+ - (float) totalSumFromArray:(NSMutableArray *)arrayTotal {
     float sum = 0.0;
     if ([arrayTotal count]) {
         sum = [[[arrayTotal valueForKey:@"amount"] valueForKeyPath:@"@sum.self"] floatValue];
     } else {
-        sum = 0.0;
+      sum = 0.0;
     }
     return  sum;
+}
+
+
+ - (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage {
+    UIImage *image = nil;
+    
+    CGSize newImageSize = CGSizeMake(MAX(firstImage.size.width, secondImage.size.width), MAX(firstImage.size.height, secondImage.size.height));
+    if (&UIGraphicsBeginImageContextWithOptions != NULL) {
+        UIGraphicsBeginImageContextWithOptions(newImageSize, NO, [[UIScreen mainScreen] scale]);
+    }
+    [firstImage drawAtPoint:CGPointMake(roundf((newImageSize.width-firstImage.size.width)/2),
+                                        roundf((newImageSize.height-firstImage.size.height)/2))];
+    [secondImage drawAtPoint:CGPointMake(roundf((newImageSize.width-secondImage.size.width)/2),
+                                         roundf((newImageSize.height-secondImage.size.height)/2))];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 

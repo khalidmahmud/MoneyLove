@@ -15,32 +15,33 @@
 
 @implementation MenuViewController
 
-- (void)viewDidLoad {
-  [super viewDidLoad];
-  // Do any additional setup after loading the view.
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
+ - (void)viewDidLoad {
+    [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.menuOptions = [[NSArray alloc] initWithObjects:@"Transactions",@"Incomes",@"Expenses",nil];
-    self.menuOptionsIcons = [[NSArray alloc] initWithObjects:@"Transactions.png",@"Incomes.png",@"Expenses.png",nil];
-    [self.menuTableView registerNib:[UINib nibWithNibName:@"MenuHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"MenuTableHeader"];
-    if ([DataAccess getTotalExpense] < 0.0) {
-        NSLog(@"Error occured....");
-    } else {
-        self.totalExpense = [DataAccess getTotalExpense];
-    }
-    if ([DataAccess getTotalIncome] < 0.0) {
-        NSLog(@"Error occured....");
-    } else {
-        self.totalIncome = [DataAccess getTotalIncome];
-    }
-  
-    [self.menuTableView reloadData];
+    self.navigationItem.hidesBackButton = YES;
 }
 
-- (void)didReceiveMemoryWarning {
+ - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+      // Do any additional setup after loading the view.
+      self.menuOptions = [[NSArray alloc] initWithObjects:@"Transactions",@"Incomes",@"Expenses",nil];
+      self.menuOptionsIcons = [[NSArray alloc] initWithObjects:@"Transactions.png",@"Incomes.png",@"Expenses.png",nil];
+      [self.menuTableView registerNib:[UINib nibWithNibName:@"MenuHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"MenuTableHeader"];
+      if ([DataAccess getTotalExpense] < 0.0) {
+          NSLog(@"Error occured....");
+      } else {
+          self.totalExpense = [DataAccess getTotalExpense];
+      }
+      if ([DataAccess getTotalIncome] < 0.0) {
+          NSLog(@"Error occured....");
+      } else {
+          self.totalIncome = [DataAccess getTotalIncome];
+      }
+    
+      [self.menuTableView reloadData];
+}
+
+ - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -55,11 +56,11 @@
  }
  */
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+ - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.menuOptions count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+ - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *menuCellTableIdentifier = @"MenuCell"; //cell for menuTableView
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:menuCellTableIdentifier];
     if (cell == nil) {
@@ -73,7 +74,7 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         [self performSegueWithIdentifier:@"goToMain" sender:self.menuTableView];
     } else if (indexPath.row == 1) {
@@ -83,7 +84,7 @@
     }
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+ - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     MenuHeader *header=[tableView dequeueReusableHeaderFooterViewWithIdentifier:@"MenuTableHeader"];
     // checking subtitle....
     NSString *checkSubtitle = [NSString stringWithFormat:@"%.2f",(self.totalIncome - self.totalExpense)];
@@ -94,7 +95,7 @@
     return header;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+ - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 48;
 }
 

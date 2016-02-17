@@ -25,7 +25,6 @@
         NSMutableArray *emptyArray = [NSMutableArray array];
         return emptyArray;
     }
-    NSLog(@"%@",expenseName);
     return expenseName;
 }
 
@@ -42,7 +41,6 @@
         NSMutableArray *emptyArray = [NSMutableArray array];
         return emptyArray;
     }
-    NSLog(@"%@",incomeName);
     return incomeName;
 }
 

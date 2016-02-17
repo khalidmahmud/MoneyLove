@@ -15,6 +15,5 @@
 @property (nonatomic, assign) float amount;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, assign) int type;
-//@property (nonatomic, strong) UIImage *icon;
 
 @end

@@ -29,7 +29,7 @@
 
 @implementation IncomeViewController
 
-- (void)viewDidLoad {
+ - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -49,8 +49,17 @@
     } else {
         self.totalIncome = [DataAccess getTotalIncome];
     }
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 480, 44)];
+    label.backgroundColor = [UIColor clearColor];
+    label.numberOfLines = 2;
+    label.font = [UIFont boldSystemFontOfSize: 14.0f];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"Your Wallet \n %.2f tk.",(self.totalIncome - self.totalExpense)];
+    self.navigationItem.titleView = label;
 
-    self.title = [[NSString alloc] initWithString:[NSString stringWithFormat:@"Your Wallet = %.2f",(self.totalIncome - self.totalExpense)]];
     //getting the start and end dates
     self.currentStartDate = [self setStartDateFromCurrentDate];
     self.currentEndDate = [self nextMonthCalculation:self.currentStartDate];//getting to next month
@@ -62,7 +71,7 @@
     self.walletIncome2 = [self totalSumFromArray:resultOfIncome2];
     //data array 1............
     NSMutableArray *resultOfIncome1 = [[accessData getIncomeWithStartDate:[self previousMonthCalculation:self.currentStartDate] endDate:[self previousMonthCalculation:self.currentEndDate]]mutableCopy];
-
+    
     //getting the income...previous week
     self.walletIncome1 = [self totalSumFromArray:resultOfIncome1];
     
@@ -103,35 +112,54 @@
     
     //if initially any data array is empty......
     if (![self.incomeDataArray1 count]) {
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:self.incomeTableView1.frame];
-        self.incomeTableView1.backgroundView = tempImageView;
+        self.incomeTableView1.hidden = YES;
     }
-    if(![self.incomeDataArray2 count] ) {
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:self.incomeTableView2.frame];
-        self.incomeTableView2.backgroundView = tempImageView;
+    if (![self.incomeDataArray2 count] ) {
+        self.incomeTableView2.hidden = YES;
     }
-    if(![self.incomeDataArray3 count] ) {
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:self.incomeTableView3.frame];
-        self.incomeTableView3.backgroundView = tempImageView;
+    if (![self.incomeDataArray3 count] ) {
+        self.incomeTableView3.hidden = YES;
     }
-
+    //
+    UIButton* customLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [customLeftButton setImage:[UIImage imageNamed:@"menu-icon_black.png"] forState:UIControlStateNormal];
+    [customLeftButton setTitle:@"" forState:UIControlStateNormal];
+    [customLeftButton addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
+    [customLeftButton sizeToFit];
+    UIBarButtonItem* customLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:customLeftButton];
+    self.navigationItem.leftBarButtonItem = customLeftBarButtonItem;
+    //*****
+    //register nib for headers
     [self.incomeTableView1 registerNib:[UINib nibWithNibName:@"StatisticsIncomeHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"StatisticsIncomeHeader"];
     [self.incomeTableView2 registerNib:[UINib nibWithNibName:@"StatisticsIncomeHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"StatisticsIncomeHeader"];
     [self.incomeTableView3 registerNib:[UINib nibWithNibName:@"StatisticsIncomeHeader" bundle:nil] forHeaderFooterViewReuseIdentifier:@"StatisticsIncomeHeader"];
 }
 
--(void)setScrollView {
+ - (void) back:(UIBarButtonItem *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+ - (void)setScrollView {
     CGSize size = CGSizeMake(self.view.bounds.size.width * 3, self.view.bounds.size.height);
     [self.incomeScrollView setContentSize:size];
     
     CGPoint point = CGPointMake(self.view.bounds.size.width, 0.0);
     [self.incomeScrollView setContentOffset:point];
+    
+    UIImage *timage = [UIImage imageNamed:@"NoTransaction.png"];
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, NO, 0.0);
+    [timage drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImage *testImage = [self imageByCombiningImage:newImage withImage:newImage];
+    testImage = [self imageByCombiningImage:testImage withImage:newImage];
+    self.incomeScrollView.backgroundColor = [UIColor colorWithPatternImage:testImage];
+    
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+ - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([tableView isEqual:self.incomeTableView1]) {
         return [self.incomeDataArray1 count];
     } else if ([tableView isEqual:self.incomeTableView2]) {
@@ -142,26 +170,25 @@
 }
 
 
-- (void)didReceiveMemoryWarning {
+ - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+ - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *incomeTableIdentifier = @"IncomeCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:incomeTableIdentifier];
-    if (cell == nil)
-    {
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:incomeTableIdentifier];
     }
     [cell setBackgroundColor:[UIColor clearColor]];
@@ -178,16 +205,16 @@
     if (arrayTemp1.count) {
         IncomeDataModel *data = [arrayTemp1 objectAtIndex:indexPath.row];
         if (data.type == 1) {  // If type is expense
-            cell.textLabel.text = data.category;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f",data.amount];
-            cell.detailTextLabel.textColor = [UIColor redColor];
-            cell.imageView.image = [accessData getIcon:data.category typeTransaction:data.type];
-        } else if (data.type == 2) { // If type is income
-            cell.textLabel.text = data.category;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f",data.amount];
-            cell.detailTextLabel.textColor = [UIColor blueColor];
-            cell.imageView.image = [accessData getIcon:data.category typeTransaction:data.type];
-        }
+          cell.textLabel.text = data.category;
+          cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f",data.amount];
+          cell.detailTextLabel.textColor = [UIColor redColor];
+          cell.imageView.image = [accessData getIcon:data.category typeTransaction:data.type];
+      } else if (data.type == 2) { // If type is income
+          cell.textLabel.text = data.category;
+          cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f",data.amount];
+          cell.detailTextLabel.textColor = [UIColor blueColor];
+          cell.imageView.image = [accessData getIcon:data.category typeTransaction:data.type];
+      }
     }
     return cell;
 }
@@ -195,14 +222,14 @@
 
 #pragma mark - updating Previous Month and Next Month
 
-- (NSMutableArray *)getPreviousMonth {
+ - (NSMutableArray *)getPreviousMonth {
     NSMutableArray *previousMonthDataIncome;
     DataAccess *accessData = [[DataAccess alloc] init];
     previousMonthDataIncome = [[accessData getIncomeWithStartDate:[self previousMonthCalculation:self.currentStartDate] endDate:[self previousMonthCalculation:self.currentEndDate]] mutableCopy];
     return previousMonthDataIncome;
 }
 
-- (NSMutableArray *)getNextMonth {
+ - (NSMutableArray *)getNextMonth {
     NSMutableArray *nextMonthDataIncome;
     DataAccess *accessData = [[DataAccess alloc] init];
     
@@ -212,15 +239,14 @@
 
 
 #pragma mark - ScrollView
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+ - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView == self.incomeScrollView) {
-        if(scrollView.contentOffset.x == 0) {
+        if (scrollView.contentOffset.x == 0) {
             NSDate *tempDate = self.currentStartDate;
             self.currentStartDate = [self previousMonthCalculation:self.currentStartDate];
             self.currentEndDate = tempDate;
             [self moveRight];
-        } else if(scrollView.contentOffset.x == (self.view.bounds.size.width*2)) {
+        } else if (scrollView.contentOffset.x == (self.view.bounds.size.width*2)) {
             self.currentStartDate = self.currentEndDate;
             self.currentEndDate = [self nextMonthCalculation:self.currentEndDate];
             [self moveLeft];
@@ -229,8 +255,8 @@
     }
 }
 
--(void)moveLeft {
-    
+ - (void)moveLeft {
+  
     UITableView *tempTblView = [self.arrayTableView objectAtIndex:0];
     [self.arrayTableView removeObjectAtIndex:0];
     [self.arrayTableView insertObject:tempTblView atIndex:2];
@@ -250,8 +276,8 @@
     }
 }
 
--(void)moveRight {
-    
+ - (void)moveRight {
+  
     UITableView *tempTblView = [self.arrayTableView objectAtIndex:2];
     [self.arrayTableView removeObjectAtIndex:2];
     [self.arrayTableView insertObject:tempTblView atIndex:0];
@@ -270,20 +296,22 @@
     }
 }
 
--(void)updateScrollViewCotent {
+ - (void)updateScrollViewCotent {
     for (int i = 0; i < self.arrayTableView.count; i++) {
-        UITableView *tblView = [self.arrayTableView objectAtIndex:i];
-        
-        [tblView setFrame:CGRectMake(i * self.view.bounds.size.width, 0.0, tblView.frame.size.width, tblView.frame.size.height)];
-        tblView.tag = i + 1;
-        [self.arrayTableView replaceObjectAtIndex:i withObject:tblView];
+         UITableView *tblView = [self.arrayTableView objectAtIndex:i];
+          
+         [tblView setFrame:CGRectMake(i * self.view.bounds.size.width, 0.0, tblView.frame.size.width, tblView.frame.size.height)];
+         tblView.tag = i + 1;
+         [self.arrayTableView replaceObjectAtIndex:i withObject:tblView];
     }
     CGPoint point = CGPointMake(self.view.bounds.size.width, 0.0);
     [self.incomeScrollView setContentOffset:point];
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+ - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     StatisticsIncomeHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"StatisticsIncomeHeader"];
+    header.monthlyIncomeLabel.layer.borderColor = [UIColor grayColor].CGColor;
+    header.monthlyIncomeLabel.layer.borderWidth = 3.0;
     DataAccess *accessData = [[DataAccess alloc] init];
     
     if (tableView.tag == 1) {//previous view section header
@@ -314,7 +342,7 @@
     return header;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+ - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if ([tableView.dataSource tableView:tableView numberOfRowsInSection:section] == 0) {
         return 0;
     } else {
@@ -322,23 +350,21 @@
     }
 }
 
-- (void) showNoDataView:(NSArray *)checkArray identifier:(int)tableIdentifier {
+ - (void) showNoDataView:(NSArray *)checkArray identifier:(int)tableIdentifier {
     if (![checkArray count]) {
         UITableView *tblView1 = [self.arrayTableView objectAtIndex:tableIdentifier];
         [tblView1 reloadData];
-        UIImageView *tempImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Question_mark_Icon_64.png"]];
-        [tempImageView setFrame:tblView1.frame];
-        tblView1.backgroundView = tempImageView;
-        [tblView1 reloadData];
+        tblView1.hidden = YES;
     } else if ([checkArray count]) {
         UITableView *tblView1 = [self.arrayTableView objectAtIndex:tableIdentifier];
         tblView1.backgroundView.hidden = YES;
+        tblView1.hidden = NO;
         [tblView1 reloadData];
     }
 }
 
-- (NSDate *)setStartDateFromCurrentDate {
-    
+ - (NSDate *)setStartDateFromCurrentDate {
+   
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
     NSDateComponents* components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
@@ -346,18 +372,18 @@
     return [calendar dateFromComponents:components];
 }
 
-- (NSDate *) nextMonthCalculation:(NSDate *)givenDate {
+ - (NSDate *) nextMonthCalculation:(NSDate *)givenDate {
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     
     NSDateComponents* components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:givenDate];
     
     [components setMonth:([components month] + 1)];
     [components setHour:06];
-
+    
     return [calendar dateFromComponents:components];
 }
 
-- (NSDate *) previousMonthCalculation:(NSDate *)givenDate {
+ - (NSDate *) previousMonthCalculation:(NSDate *)givenDate {
     NSCalendar* calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents* components = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay fromDate:givenDate];
     [components setMonth:([components month] - 1)];
@@ -366,15 +392,33 @@
     return [calendar dateFromComponents:components];
 }
 
-- (float) totalSumFromArray:(NSMutableArray *)arrayTotal {
+ - (float) totalSumFromArray:(NSMutableArray *)arrayTotal {
     float sum = 0.0;
     if ([arrayTotal count]) {
-        sum = [[[arrayTotal valueForKey:@"amount"] valueForKeyPath:@"@sum.self"] floatValue];
+      sum = [[[arrayTotal valueForKey:@"amount"] valueForKeyPath:@"@sum.self"] floatValue];
     } else {
-        sum = 0.0;
+      sum = 0.0;
     }
     return  sum;
 }
+
+ - (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage {
+    UIImage *image = nil;
+    
+    CGSize newImageSize = CGSizeMake(MAX(firstImage.size.width, secondImage.size.width), MAX(firstImage.size.height, secondImage.size.height));
+    if (&UIGraphicsBeginImageContextWithOptions != NULL) {
+        UIGraphicsBeginImageContextWithOptions(newImageSize, NO, [[UIScreen mainScreen] scale]);
+    }
+    [firstImage drawAtPoint:CGPointMake(roundf((newImageSize.width-firstImage.size.width)/2),
+                                        roundf((newImageSize.height-firstImage.size.height)/2))];
+    [secondImage drawAtPoint:CGPointMake(roundf((newImageSize.width-secondImage.size.width)/2),
+                                         roundf((newImageSize.height-secondImage.size.height)/2))];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 
 @end
 

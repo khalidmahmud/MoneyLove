@@ -40,6 +40,12 @@
 		84DA525E1C64DBFD00AC6AD2 /* ExpenseDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DA525D1C64DBFD00AC6AD2 /* ExpenseDataModel.m */; };
 		84DA52601C64DDB700AC6AD2 /* StatisticsExpenseHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DA525F1C64DDB700AC6AD2 /* StatisticsExpenseHeader.xib */; };
 		84DC8E1F1C6300860097EB4A /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 84DC8E1E1C6300860097EB4A /* Images */; };
+		84E7F5DE1C741D090080EFCC /* AddTransaction.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E7F5D91C741D090080EFCC /* AddTransaction.png */; };
+		84E7F5DF1C741D090080EFCC /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E7F5DA1C741D090080EFCC /* Back.png */; };
+		84E7F5E01C741D090080EFCC /* Cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E7F5DB1C741D090080EFCC /* Cancel.png */; };
+		84E7F5E11C741D090080EFCC /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E7F5DC1C741D090080EFCC /* Check.png */; };
+		84E7F5E21C741D090080EFCC /* NoTransaction.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E7F5DD1C741D090080EFCC /* NoTransaction.png */; };
+		84E7F5E41C7425EF0080EFCC /* menu-icon_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E7F5E31C7425EF0080EFCC /* menu-icon_black.png */; };
 		84F2915C1C4917AF00CC2212 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F2915B1C4917AF00CC2212 /* main.m */; };
 		84F2915F1C4917AF00CC2212 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F2915E1C4917AF00CC2212 /* AppDelegate.m */; };
 		84F291621C4917AF00CC2212 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F291611C4917AF00CC2212 /* ViewController.m */; };
@@ -125,6 +131,12 @@
 		84DA525D1C64DBFD00AC6AD2 /* ExpenseDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpenseDataModel.m; sourceTree = "<group>"; };
 		84DA525F1C64DDB700AC6AD2 /* StatisticsExpenseHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatisticsExpenseHeader.xib; sourceTree = "<group>"; };
 		84DC8E1E1C6300860097EB4A /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		84E7F5D91C741D090080EFCC /* AddTransaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddTransaction.png; sourceTree = "<group>"; };
+		84E7F5DA1C741D090080EFCC /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
+		84E7F5DB1C741D090080EFCC /* Cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cancel.png; sourceTree = "<group>"; };
+		84E7F5DC1C741D090080EFCC /* Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Check.png; sourceTree = "<group>"; };
+		84E7F5DD1C741D090080EFCC /* NoTransaction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoTransaction.png; sourceTree = "<group>"; };
+		84E7F5E31C7425EF0080EFCC /* menu-icon_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon_black.png"; sourceTree = "<group>"; };
 		84F291571C4917AF00CC2212 /* MoneyLove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoneyLove.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F2915B1C4917AF00CC2212 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		84F2915D1C4917AF00CC2212 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -356,6 +368,12 @@
 		84F2915A1C4917AF00CC2212 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84E7F5E31C7425EF0080EFCC /* menu-icon_black.png */,
+				84E7F5D91C741D090080EFCC /* AddTransaction.png */,
+				84E7F5DA1C741D090080EFCC /* Back.png */,
+				84E7F5DB1C741D090080EFCC /* Cancel.png */,
+				84E7F5DC1C741D090080EFCC /* Check.png */,
+				84E7F5DD1C741D090080EFCC /* NoTransaction.png */,
 				844FC58C1C5540CD00E96C9A /* Expenses.png */,
 				844FC58D1C5540CD00E96C9A /* Incomes.png */,
 				844FC58E1C5540CD00E96C9A /* Transactions.png */,
@@ -490,6 +508,7 @@
 				84DC8E1F1C6300860097EB4A /* Images in Resources */,
 				84F2916D1C4917AF00CC2212 /* LaunchScreen.storyboard in Resources */,
 				84F2916A1C4917AF00CC2212 /* Assets.xcassets in Resources */,
+				84E7F5E01C741D090080EFCC /* Cancel.png in Resources */,
 				84F291651C4917AF00CC2212 /* Main.storyboard in Resources */,
 				843BD86D1C5B734100099437 /* MainTransactionHeader.xib in Resources */,
 				844FC58F1C5540CD00E96C9A /* Expenses.png in Resources */,
@@ -497,7 +516,12 @@
 				844FC5901C5540CD00E96C9A /* Incomes.png in Resources */,
 				843E27801C50E73C0072C9AD /* MenuHeader.xib in Resources */,
 				847441251C4E54E4003346B1 /* wallet.png in Resources */,
+				84E7F5E11C741D090080EFCC /* Check.png in Resources */,
+				84E7F5DE1C741D090080EFCC /* AddTransaction.png in Resources */,
+				84E7F5E41C7425EF0080EFCC /* menu-icon_black.png in Resources */,
 				84DA52601C64DDB700AC6AD2 /* StatisticsExpenseHeader.xib in Resources */,
+				84E7F5DF1C741D090080EFCC /* Back.png in Resources */,
+				84E7F5E21C741D090080EFCC /* NoTransaction.png in Resources */,
 				84DA52531C64938F00AC6AD2 /* StatisticsIncomeHeader.xib in Resources */,
 				84843D2F1C4CA521007B7B74 /* Question_mark_Icon_64.png in Resources */,
 			);
